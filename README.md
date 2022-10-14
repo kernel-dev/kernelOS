@@ -4,10 +4,12 @@ KernelOS, whilst still a WIP, is a toy OS I've built in my spare time for a scho
 
 ## Goals
 
+- [ ] Custom bootloader to obtain basic information necessary, load the kernel image and call it with passed down arguments.
 - [ ] Kernel-space memory management (pagers, vmem functions, etc.)
 - [ ] Mutex locks for threads
 - [ ] Basic Bash & C support
 - [ ] PS/2 Keyboard support
+- [ ] ACPICA implementation
 - [ ] DSDT parser to expose the table in plaintext
 
 ## Credits / Resources
