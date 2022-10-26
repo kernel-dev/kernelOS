@@ -1,5 +1,5 @@
-#ifndef KERNACPI_H
-#define KERNACPI_H
+#ifndef KERNEFIACPI_H
+#define KERNEFIACPI_H
 
 #include <Uefi.h>
 #include <Library/UefiBootServicesTableLib.h>
@@ -31,7 +31,7 @@ typedef struct {
 
 /**
     Attempts to locate the FADT by
-    traversing the entires inside of XSDT.
+    traversing the entries inside of XSDT.
 
     @param[in]      Xsdt            The XSDT.
     @param[out]     Fadt            The FADT to locate.
@@ -70,4 +70,4 @@ EfiGetTables (
     OUT EFI_ACPI_2_0_FIXED_ACPI_DESCRIPTION_TABLE    **Fadt,
     OUT ACPI_DIFFERENTIATED_SYSTEM_DESCRIPTOR_TABLE  **Dsdt);
 
-#endif /* KernAcpi.h */
+#endif /* KernEfiAcpi.h */

@@ -1,11 +1,16 @@
-#ifndef KERNMEM_H
-#define KERNMEM_H
+#ifndef KERN_EFI_MEM_H
+#define KERN_EFI_MEM_H
 
 #include <Uefi.h>
+
 #include <Library/UefiLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/BaseMemoryLib.h>
 
+/**
+    The maximum address for an EFI
+    memory descriptor.
+ **/
 #define MEMORY_UPPER_BOUNDARY     0xFFFFFFFFFFFFF000
 
 /**
@@ -38,4 +43,4 @@ EfiKernGetMemoryMap (
     IN EFI_HANDLE           ImageHandle, 
     IN EFI_SYSTEM_TABLE     *SystemTable);
 
-#endif /* KernMem.h */
+#endif /* KernEfiMem.h */
