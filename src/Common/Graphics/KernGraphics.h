@@ -8,12 +8,12 @@
 
 VOID 
 ScreenClearTerminal (
-    IN KERN_FRAMEBUFFER **FB
+    IN KERN_FRAMEBUFFER *FB
 );
 
 VOID
 ScreenFillRectangle (
-    IN KERN_FRAMEBUFFER **FB,
+    IN KERN_FRAMEBUFFER *FB,
     IN UINT32           X,
     IN UINT32           Y,
     IN UINT32           Width,
@@ -23,7 +23,7 @@ ScreenFillRectangle (
 
 VOID
 ScreenPutPixel (
-    IN KERN_FRAMEBUFFER **FB,
+    IN KERN_FRAMEBUFFER *FB,
     IN UINT32           X,
     IN UINT32           Y,
     IN UINT32           Color

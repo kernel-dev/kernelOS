@@ -1,7 +1,9 @@
 #include "../../Common/Graphics/KernGop.h"
 #include "../../Common/Graphics/KernGraphics.h"
+#include "../../Common/Memory/KernMem.h"
 
 #include <Uefi.h>
+
 #include <Library/UefiLib.h>
 
 //
@@ -11,21 +13,18 @@
 //
 VOID
 ScreenClearTerminal (
-    IN KERN_FRAMEBUFFER **FB
+    IN KERN_FRAMEBUFFER *FB
 )
 {
-    ScreenFillRectangle (
-        FB,
-        0, 
-        0,
-        (*FB)->HorizontalRes,
-        (*FB)->VerticalRes,
-        0x0);
+    KernMemset (
+        (VOID *) (UINT32 *) FB->FramebufferBase,
+        0x00,
+        FB->FramebufferSize);
 }
 
 VOID
 ScreenFillRectangle (
-    IN KERN_FRAMEBUFFER **FB,
+    IN KERN_FRAMEBUFFER *FB,
     IN UINT32           X,
     IN UINT32           Y,
     IN UINT32           Width,
@@ -47,13 +46,20 @@ ScreenFillRectangle (
 
 VOID
 ScreenPutPixel (
-    IN KERN_FRAMEBUFFER **FB,
+    IN KERN_FRAMEBUFFER *FB,
     IN UINT32           X,
     IN UINT32           Y,
     IN UINT32           Color
 )
 {
-    UINT32 Address = ((*FB)->FramebufferBase + (Y * (*FB)->Pitch + (*FB)->Width * X));
+    UINT32 Address = (FB->FramebufferBase + (Y * FB->Pitch + FB->Width * X));
+
+    //
+    //  Cannot write pixel values to memory that
+    //  is not a part of the framebuffer space.
+    //
+    if (Address > (FB->FramebufferBase + FB->FramebufferSize))
+        return;
 
     *((UINT32 *) (Address)) = Color;
 }
