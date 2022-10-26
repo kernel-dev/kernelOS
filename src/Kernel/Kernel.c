@@ -17,21 +17,12 @@ KernMain (
     IN ACPI_DIFFERENTIATED_SYSTEM_DESCRIPTOR_TABLE  *Dsdt,
     IN KERN_FRAMEBUFFER                             *Framebuffer)
 {
-    // ScreenPutPixel (&Framebuffer, 5, 5, 0xFF);
-    // ScreenPutPixel (&Framebuffer, 15, 15, 0xFF00);
-    // ScreenPutPixel (&Framebuffer, 25, 25, 0xFF0000);
-    // ScreenPutPixel (&Framebuffer, 26, 26, 0xFF0000);
-    // ScreenPutPixel (&Framebuffer, 27, 27, 0xFF0000);
-    // ScreenPutPixel (&Framebuffer, 28, 28, 0xFF0000);
-    // ScreenPutPixel (&Framebuffer, 29, 29, 0xFF0000);
-    // ScreenClearTerminal(Framebuffer);
-    ScreenClearTerminal (&Framebuffer);
-    // ScreenFillRectangle (&Framebuffer, 5, 5, 20, 20, 0xFF00);
+    ScreenClearTerminal (Framebuffer);
+    ScreenFillRectangle (Framebuffer, 5, 5, 20, 20, 0xFF00);
 
-    // RT->ResetSystem (EfiResetWarm, EFI_SUCCESS, 0, NULL);
-
-    // Should never reach here.
-    while (TRUE) {
-        // ScreenClearTerminal (&Framebuffer);
-    };
+    //
+    //  Should never reach here.
+    //  Will be removed later.
+    //
+    while (TRUE) {};
 }   
