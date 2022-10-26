@@ -8,9 +8,10 @@
 
 //
 // FIXME:   Plotting pixels to screen
-//          from (0, 0) to (H, V) yields
-//          an exception.
+//          does not work. Maybe the
+//          FrameBufferBase is invalid?
 //
+
 VOID
 ScreenClearTerminal (
     IN KERN_FRAMEBUFFER *FB
