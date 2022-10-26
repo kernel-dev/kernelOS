@@ -53,5 +53,12 @@ typedef struct {
     UINT64                      *PhysicalAddress;
 } KERNEL_PHYSICAL_MEMORY_PAGE;
 
+VOID *
+KernMemset (
+    IN  VOID    *PTR,
+    IN  INT64   CH,
+    IN  INT64   Count
+);
+
 
 #endif /* KernMem.h */
