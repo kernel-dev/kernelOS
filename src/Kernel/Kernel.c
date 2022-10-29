@@ -18,8 +18,6 @@ KernMain (
     IN KERN_FRAMEBUFFER                             *Framebuffer)
 {
     ScreenClearTerminal (Framebuffer);
-    ScreenFillRectangle (Framebuffer, 5, 5, 20, 20, 0xFF00);
-
     //
     //  Should never reach here.
     //  Will be removed later.
