@@ -6,16 +6,20 @@
 #include <Library/UefiLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 
+/**
+    A struct describing the passed down
+    framebuffer to the kernel's EP.
+ **/
 typedef struct {
-    EFI_PHYSICAL_ADDRESS                FramebufferBase;
-    EFI_PHYSICAL_ADDRESS                FramebufferSize;
-    UINT64                              HorizontalRes;
-    UINT64                              VerticalRes;
-    UINT64                              PPS; // Pixels Per Scanline
-    UINT64                              Pitch;
-    UINT64                              Width;
-    EFI_PIXEL_BITMASK                   PixelBitmask;
-    UINT32                              CurrentMode;
+    EFI_PHYSICAL_ADDRESS                FramebufferBase;    /// The base address of the framebuffer.
+    EFI_PHYSICAL_ADDRESS                FramebufferSize;    /// The total size of the framebuffer memory space (max address = FramebufferBase + FramebufferSize).
+    UINT64                              HorizontalRes;      /// The horizontal resolution of this mode.
+    UINT64                              VerticalRes;        /// The vertical resolution of this mode.
+    UINT64                              PPS;                /// Pixels Per Scanline.
+    UINT64                              BPP;                /// The "bytes per pixel" value.
+    UINT64                              Pitch;              /// Density of the pixel (BPP * PPS).
+    EFI_PIXEL_BITMASK                   PixelBitmask;       /// The pixel definition of the physical framebuffer.
+    UINT32                              CurrentMode;        /// The index of the wanted mode.
 } KERN_FRAMEBUFFER;
 
 /**
@@ -25,8 +29,8 @@ typedef struct {
     @param[in]      SystemTable     The system table.
     @param[out]     GOP             The graphics output protocol.
 
-    @returns        EFI_SUCCESS     The GOP was successfully found.
-                    EFI_NOT_FOUND   The GOP could not be found.
+    @retval         EFI_SUCCESS     The GOP was successfully found.
+    @retval         EFI_NOT_FOUND   The GOP could not be found.
  **/
 EFI_STATUS
 KernLocateGop (
@@ -39,8 +43,8 @@ KernLocateGop (
     @param[in]      GOP             The graphics output protocol.
     @param[out]     Info            The information about the currently set video mode.
 
-    @returns        EFI_SUCCESS     The native video mode was found.
-                    EFI_NOT_FOUND   The native video mode could not be found.
+    @retval         EFI_SUCCESS     The native video mode was found.
+    @retval         EFI_NOT_FOUND   The native video mode could not be found.
  **/
 EFI_STATUS
 KernGetVideoMode (
@@ -57,8 +61,8 @@ KernGetVideoMode (
     @param[in]      GOP             The graphics output protocol.
     @param[in]      Info            The information about the currently set video mode.
 
-    @returns        TRUE            The provided video mode is supported.
-                    FALSE           The provided video mode is _NOT_ supported.
+    @retval         TRUE            The provided video mode is supported.
+    @retval         FALSE           The provided video mode is _NOT_ supported.
  **/
 BOOLEAN
 KernModeAvailable (
