@@ -17,9 +17,13 @@ ScreenClearTerminal (
     IN KERN_FRAMEBUFFER *FB
 )
 {
+    //
+    //  Fill the entirety of the framebuffer
+    //  memory space with black pixels (0x0).
+    //
     KernMemset (
         (VOID *) (UINT32 *) FB->FramebufferBase,
-        0x00,
+        0xFF,
         FB->FramebufferSize);
 }
 
@@ -36,6 +40,12 @@ ScreenFillRectangle (
     UINT32 Horizontal = X;
     UINT32 Vertical = Y;
 
+    //
+    //  Iterate over every coordinate (X, Y),
+    //  and in accordance to the specified height-weight,
+    //  and fill each corresponding memory space
+    //  with the provided BGRA (32-bit) color.
+    //
     for (; Horizontal < (X + Width); Horizontal++)
     {
         for (; Vertical < (Y + Height); Vertical++)
@@ -53,14 +63,22 @@ ScreenPutPixel (
     IN UINT32           Color
 )
 {
-    UINT32 Address = (FB->FramebufferBase + (Y * FB->Pitch + FB->Width * X));
+    //
+    //  Locate the corresponding memory space
+    //  based on the (X, Y) coordinates.
+    //
+    UINT32 Address = (UINT32) (FB->FramebufferBase + (Y * FB->Pitch + FB->BPP * X));
 
     //
     //  Cannot write pixel values to memory that
-    //  is not a part of the framebuffer space.
+    //  is not a part of the framebuffer memory space.
     //
-    if (Address > (FB->FramebufferBase + FB->FramebufferSize))
-        return;
+    // if (Address > (FB->FramebufferBase + FB->FramebufferSize))
+    //     return;
 
+    //
+    //  Replace contents of the memory block
+    //  with the provided BGRA (32-bit) color.
+    //
     *((UINT32 *) (Address)) = Color;
 }
