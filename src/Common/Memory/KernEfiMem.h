@@ -27,16 +27,17 @@ typedef struct {
 } EFI_KERN_MEMORY_MAP;
 
 /**
-    Attempts to obtain the memory map
-    of all the restricted, reserved, or
-    otherwise unaccessible regions of memory,
-    which are in-use by the system and other
-    UEFI applications.
+    Attempts to obtain the system memory map
+    right before calling the kernel's EP.
 
-    @param[in]      ImageHandle     The EFI handle.
-    @param[in]      SystemTable     The EFI system table.
+    @param[in]  ImageHandle  The image handle.
+    @param[in]  SystemTable  A pointer to the system table.
 
-    @retval         EFI_KERN_MEMORY_MAP
+    @returns    A memory map contained in an
+                EFI_KERN_MEMORY_MAP struct.
+                The ".Empty" property will be
+                TRUE if something went wrong,
+                otherwise FALSE
  **/
 EFI_KERN_MEMORY_MAP
 EfiKernGetMemoryMap (
