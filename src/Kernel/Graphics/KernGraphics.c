@@ -73,8 +73,8 @@ ScreenPutPixel (
     //  Cannot write pixel values to memory that
     //  is not a part of the framebuffer memory space.
     //
-    // if (Address > (FB->FramebufferBase + FB->FramebufferSize))
-    //     return;
+    if (Address > (FB->FramebufferBase + FB->FramebufferSize))
+        return;
 
     //
     //  Replace contents of the memory block
