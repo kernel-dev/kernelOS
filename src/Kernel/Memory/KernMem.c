@@ -13,12 +13,9 @@ KernMemset (
 {
     unsigned char *Dest = PTR;
 
-    while (Count > 0)
+    while (Count--)
     {
-        *Dest = (unsigned char) CH;
-
-        Dest++;
-        Count--;
+        *Dest++ = (unsigned char) CH;
     }
 
     return PTR;
