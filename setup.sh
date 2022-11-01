@@ -30,9 +30,9 @@ rm -rf hda-contents/kernel.bin* 2> /dev/null
 cp kernel.o hda-contents/kernel.bin 2> /dev/null
 
 # Run the OVMF.fd inside of QEMU
-# qemu-system-x86_64 -serial stdio -pflash bootloader/bios.bin -hda fat:rw:hda-contents -net none -m 2048M
 qemu-system-x86_64 \
     -serial stdio \
     -bios bootloader/bios.bin \
     -drive file=fat:rw:hda-contents,format=raw,media=disk \
-    -m 4096M
+    -m 4096M \
+    -s
