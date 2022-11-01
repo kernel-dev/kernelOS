@@ -13,9 +13,9 @@
 typedef struct {
     EFI_PHYSICAL_ADDRESS                FramebufferBase;    /// The base address of the framebuffer.
     EFI_PHYSICAL_ADDRESS                FramebufferSize;    /// The total size of the framebuffer memory space (max address = FramebufferBase + FramebufferSize).
-    UINT64                              HorizontalRes;      /// The horizontal resolution of this mode.
-    UINT64                              VerticalRes;        /// The vertical resolution of this mode.
-    UINT64                              PPS;                /// Pixels Per Scanline.
+    UINT32                              HorizontalRes;      /// The horizontal resolution of this mode.
+    UINT32                              VerticalRes;        /// The vertical resolution of this mode.
+    UINT32                              PPS;                /// Pixels Per Scanline.
     UINT64                              BPP;                /// The "bytes per pixel" value.
     UINT64                              Pitch;              /// Density of the pixel (BPP * PPS).
     EFI_PIXEL_BITMASK                   PixelBitmask;       /// The pixel definition of the physical framebuffer.
