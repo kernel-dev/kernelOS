@@ -5,12 +5,7 @@
 #include <Uefi.h>
 
 #include <Library/UefiLib.h>
-
-//
-// FIXME:   Plotting pixels to screen
-//          does not work. Maybe the
-//          FrameBufferBase is invalid?
-//
+#include <Library/DebugLib.h>
 
 VOID
 ScreenClearTerminal (
@@ -22,9 +17,9 @@ ScreenClearTerminal (
     //  memory space with black pixels (0x0).
     //
     KernMemset (
-        (VOID *) (UINT32 *) FB->FramebufferBase,
-        0xFF,
-        FB->FramebufferSize);
+        (UINT32 *)FB->FramebufferBase,
+        0x0,
+        FB->FramebufferSize - 1);
 }
 
 VOID
@@ -42,7 +37,7 @@ ScreenFillRectangle (
 
     //
     //  Iterate over every coordinate (X, Y),
-    //  and in accordance to the specified height-weight,
+    //  in accordance to the specified height-weight,
     //  and fill each corresponding memory space
     //  with the provided BGRA (32-bit) color.
     //
@@ -55,6 +50,9 @@ ScreenFillRectangle (
     }
 }
 
+//
+//  FIXME:  This logic should not be valid.
+//
 VOID
 ScreenPutPixel (
     IN KERN_FRAMEBUFFER *FB,
@@ -67,7 +65,9 @@ ScreenPutPixel (
     //  Locate the corresponding memory space
     //  based on the (X, Y) coordinates.
     //
-    UINT32 Address = (UINT32) (FB->FramebufferBase + (Y * FB->Pitch + FB->BPP * X));
+    UINT32 Address = (UINT32) (
+        FB->FramebufferBase + ((Y * FB->BPP) + (FB->BPP * X))
+    );
 
     //
     //  Cannot write pixel values to memory that
@@ -80,5 +80,5 @@ ScreenPutPixel (
     //  Replace contents of the memory block
     //  with the provided BGRA (32-bit) color.
     //
-    *((UINT32 *) (Address)) = Color;
+    *((volatile UINT32 *) (Address)) = Color;
 }
