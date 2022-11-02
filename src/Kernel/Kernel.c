@@ -31,8 +31,8 @@ KernMain (
         Framebuffer,
         0,
         0,
-        Framebuffer->HorizontalRes * Framebuffer->PPS,
-        Framebuffer->VerticalRes * Framebuffer->PPS,
+        Framebuffer->HorizontalRes,
+        Framebuffer->VerticalRes,
         0xFFFFFF5F);
 
     //
