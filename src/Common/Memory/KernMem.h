@@ -55,19 +55,74 @@ typedef struct {
 
 /**
     Fills the provided memory blocks
-    with the value of CH for Count bytes.
+    with the provided Value for Count bytes.
 
     @param[in]  PTR     The pointer to the base address of the location.
-    @param[in]  CH      The value to fill the PTR with.
-    @param[in]  Count   The size of CH in bytes.
+    @param[in]  Value   The value to fill the memory block with.
+    @param[in]  Count   The size of Value in bytes.
 
     @retval     VOID*   The modified pointer.
  **/
 VOID *
-KernMemset (
-    IN  VOID    *PTR,
-    IN  INT64   CH,
-    IN  INT64   Count
+KernMemset32 (
+    IN  VOID        *PTR,
+    IN  INT32       Value,
+    IN  UINT32      Count
+);
+
+/**
+    Fills the provided memory blocks
+    with the provided Value for Count bytes.
+
+    @param[in]  PTR     The pointer to the base address of the location.
+    @param[in]  Value   The value to fill the memory block with.
+    @param[in]  Count   The size of Value in bytes.
+
+    @retval     VOID*   The modified pointer.
+ **/
+VOID *
+KernMemset64 (
+    IN  VOID        *PTR,
+    IN  INT64       Value,
+    IN  UINT64      Count
+);
+
+/**
+    Fills the provided memory blocks
+    with the provided Value for Count bytes.
+
+    This implementation does a volatile write.
+
+    @param[in]  PTR     The pointer to the base address of the location.
+    @param[in]  Value   The value to fill the memory block with.
+    @param[in]  Count   The size of Value in bytes.
+
+    @retval     VOID*   The modified pointer.
+ **/
+VOID *
+VolatileKernMemset32 (
+    IN  VOID        *PTR,
+    IN  INT32       Value,
+    IN  UINT32      Count
+);
+
+/**
+    Fills the provided memory blocks
+    with the provided Value for Count bytes.
+
+    This implementation does a volatile write.
+
+    @param[in]  PTR     The pointer to the base address of the location.
+    @param[in]  Value   The value to fill the memory block with.
+    @param[in]  Count   The size of Value in bytes.
+
+    @retval     VOID*   The modified pointer.
+ **/
+VOID *
+VolatileKernMemset64 (
+    IN  VOID        *PTR,
+    IN  INT64       Value,
+    IN  UINT64      Count
 );
 
 
