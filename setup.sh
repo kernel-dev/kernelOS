@@ -18,6 +18,10 @@ rm -rf hda-contents/kernel.bin* 2> /dev/null
     src/Kernel/Kernel.c \
     src/Kernel/Memory/KernMem.c \
     src/Kernel/Graphics/KernGraphics.c \
+    src/Kernel/Graphics/KernFontParser.c \
+    src/Kernel/Graphics/KernText.c \
+    src/Kernel/Util/KernString.c \
+    src/Kernel/Util/KernRuntimeValues.c \
     \
     -I/Users/kernel/Documents/edk2-oofer/edk2/MdePkg/Include/ \
     -I/Users/kernel/Documents/edk2-oofer/edk2/MdePkg/Include/X64 \
