@@ -1,3 +1,4 @@
+#include "../../Common/Util/KernRuntimeValues.h"
 #include "../../Common/Graphics/KernGop.h"
 #include "../../Common/Graphics/KernGraphics.h"
 #include "../../Common/Memory/KernMem.h"
@@ -8,9 +9,7 @@
 #include <Library/DebugLib.h>
 
 VOID
-ScreenClearTerminal (
-    IN KERN_FRAMEBUFFER *FB
-)
+ScreenClearTerminal ()
 {
     //
     //  Fill the entirety of the framebuffer
@@ -24,7 +23,6 @@ ScreenClearTerminal (
 
 VOID
 ScreenFillRectangle (
-    IN KERN_FRAMEBUFFER *FB,
     IN UINT32           X,
     IN UINT32           Y,
     IN UINT32           Width,
@@ -43,7 +41,6 @@ ScreenFillRectangle (
         for (UINT32 Horizontal = X; Horizontal < (X + Width); Horizontal++)
         {
             ScreenPutPixel (
-                FB, 
                 Horizontal, 
                 Vertical,
                 Color);
@@ -53,7 +50,6 @@ ScreenFillRectangle (
 
 VOID
 ScreenPutPixel (
-    IN KERN_FRAMEBUFFER *FB,
     IN UINT32           X,
     IN UINT32           Y,
     IN UINT32           Color
@@ -63,8 +59,8 @@ ScreenPutPixel (
     //  Locate the corresponding memory space
     //  based on the (X, Y) coordinates.
     //
-    UINT32 Address = (UINT32) (
-        FB->FramebufferBase + (Y * FB->Pitch) + (FB->BPP * X)
+    UINT64 Address = (UINT64) (
+        (UINT32)FB->FramebufferBase + (Y * (1360 * FB->BPP)) + (FB->BPP * X)
     );
 
     //
@@ -78,5 +74,5 @@ ScreenPutPixel (
     //  Replace contents of the memory block
     //  with the provided BGRA (32-bit) color.
     //
-    *((volatile UINT32 *) (Address)) = Color;
+    *((volatile UINT64 *) (Address)) = Color;
 }
