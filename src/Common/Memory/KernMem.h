@@ -1,57 +1,21 @@
 #ifndef KERN_MEM_H
 #define KERN_MEM_H
 
+#include "./KernEfiMem.h"
+
 #include <Uefi.h>
 
 #include <Library/UefiLib.h>
 
 /**
-    Representation of the virtual address
-    space (page) a thread will see.
+    Structure defining a physical memory page.
  **/
 typedef struct {
-    ///
-    /// The beginning of the virtual page
-    ///
-    UINT64      Address;
-
-    ///
-    /// The size of this page
-    ///
-    UINT64      Size;
-
-    ///
-    /// The reference count of this page
-    ///
-    UINT32      RefCount;
-
-    ///
-    /// The value(s) stored inside of this page
-    ///
-    void        *Buffer;
-    
-    ///
-    /// Whether or not this page is available for use
-    ///
-    BOOLEAN     Available;
-} KERNEL_VIRTUAL_MEMORY_PAGE;
-
-/**
-    Representation of the virtual-to-physical
-    memory page map.
- **/
-typedef struct {
-    ///
-    /// The pointer to the virtual page itself.
-    ///
-    KERNEL_VIRTUAL_MEMORY_PAGE  *VirtualPage;
-
-    ///
-    /// An array of physical addresses that make up
-    /// the contiguous virtual page.
-    ///
-    UINT64                      *PhysicalAddress;
-} KERNEL_PHYSICAL_MEMORY_PAGE;
+    EFI_PHYSICAL_ADDRESS    Address;    // Beginning physical address of this page.
+    UINT32                  Size;       // Size of this page.
+    VOID                    *Buffer;    // The data this page holds.
+    BOOLEAN                 Free;       // Whether or not this page is free to use.
+} KERN_PHYSICAL_PAGE;
 
 /**
     Fills the provided memory blocks
@@ -123,6 +87,21 @@ VolatileKernMemset64 (
     IN  VOID        *PTR,
     IN  INT64       Value,
     IN  UINT64      Count
+);
+
+/**
+    Copies the Source buffer to
+    into the specified destination.
+
+    @param[in]  Destination     The destination to copy the buffer into.
+    @param[in]  Source          The source buffer (the data).
+    @param[in]  Size            The size of the Source buffer (in bytes).
+ **/
+VOID
+KernCopyMem (
+    IN  VOID    *Destination,
+    IN  VOID    *Source,
+    IN  UINT64  Size
 );
 
 

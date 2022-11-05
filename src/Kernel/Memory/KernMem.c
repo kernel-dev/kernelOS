@@ -71,3 +71,16 @@ VolatileKernMemset64 (
 
     return PTR;
 }
+
+VOID
+KernCopyMem (
+    IN  VOID    *Destination,
+    IN  VOID    *Source,
+    IN  UINTN   Size)
+{
+    UINTN *Dest = (UINTN *)Destination;
+    UINTN *Src  = (UINTN *)Source;
+
+    for (UINTN Index = 0; Index < Size; Index++)
+        Dest[Index] = Src[Index];
+}
